@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/identify")
 public class ReconcileController {
 
-    public void identity(){
+    public void identify(){
         return ;
     }
 
