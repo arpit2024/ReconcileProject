@@ -1,15 +1,15 @@
 package Bitespeed.controller;
 
 
-import Bitespeed.models.Contact;
+import Bitespeed.dto.ContactDto;
+import Bitespeed.dto.ContactReqDto;
 import Bitespeed.services.ReconcileServiceImpl;
-import org.springframework.http.HttpStatus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 @RestController
 
@@ -18,13 +18,35 @@ public class ReconcileController {
 
     private ReconcileServiceImpl reconcileService;
 
-    @RequestMapping("identify")
-    public ResponseEntity<List<Contact>> identify(@RequestBody Contact contact){
-        ResponseEntity<List<Contact>> response= new ResponseEntity<>(reconcileService.getAllDetails(),
-                HttpStatus.OK);
-        return response;
-        //return null;
+    @Autowired
+    public ReconcileController(ReconcileServiceImpl reconcileService){
+        this.reconcileService=reconcileService;
     }
 
 
+//    @POST("identify")
+//    public ResponseEntity<List<Contact>> identify(@RequestBody Contact contact){
+//        ResponseEntity<List<Contact>> response= new ResponseEntity<>(reconcileService.getAllDetails(),
+//                HttpStatus.OK);
+//        return response;
+//        //return null;
+//    }
+
+    @PostMapping("identify")
+    public ResponseEntity<ContactDto> identifyDetails(@RequestBody ContactReqDto contactReqDto) {
+        ContactDto responseDto=reconcileService.getAllDetails(contactReqDto.getEmail(), contactReqDto.getPhoneNumber() );
+
+
+
+        //return null;
+        return ResponseEntity.ok(responseDto);
+
+        /*
+        catch (RuntimeException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        } catch (IllegalArgumentException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
+        * */
+    }
 }

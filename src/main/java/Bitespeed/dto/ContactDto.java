@@ -9,53 +9,46 @@ import java.util.List;
 
 @Getter
 @Setter
+
+//I am using this class as a response Format
 public class ContactDto {
 
-    private String PrimaryContactId;
-    private List<String> emails;
+    private Integer PrimaryContactId;
+    private List<String> emailsList=new ArrayList<>();
 
-    private List<String> phoneNumbers;
+    private List<String> phoneNumbersList=new ArrayList<>();
 
-    private List<Integer> secondaryContactId;
+    private List<Integer> secondaryIds=new ArrayList<>();
 
     //Here-Mapping contact class to ContactDto for the response body
     public static ContactDto from(Contact primarycontact, List<Contact> secondaryContacts){
-        if(primarycontact==null){
-            return null;
-        }
-
 
         ContactDto contactDto = new ContactDto();
-        contactDto.setPrimaryContactId(String.valueOf(primarycontact.getId()));
+        contactDto.PrimaryContactId=primarycontact.getId();
 
-        //here i am adding the primary details at the first of list individually
-        List<String> emails = new ArrayList<>();
-        emails.add(primarycontact.getEmail());
-
-        List<String> phoneNumbers = new ArrayList<>();
-        phoneNumbers.add(primarycontact.getPhoneNumber());
-
-        List<Integer> secondaryContactIds = new ArrayList<>();
-
-// here i am traversing through the list of Secondary contact row and adding them
-// to my Dto list as per the Requirement
-        for (Contact contact : secondaryContacts) {
-            if (contact.getEmail() != null) {
-                emails.add(contact.getEmail());
+        for(Contact listContact : secondaryContacts){
+            if(listContact.getLinkPrecedence().equals(Contact.LinkPrecedence.SECONDARY)){
+                contactDto.secondaryIds.add(listContact.getId());
             }
-            if (contact.getPhoneNumber() != null) {
-                phoneNumbers.add(contact.getPhoneNumber());
+
+            if(listContact.getEmail()!=null && !contactDto.emailsList.contains(listContact)){
+                contactDto.emailsList.add(listContact.getEmail());
             }
-            secondaryContactIds.add(contact.getId());
+
+            if(listContact.getPhoneNumber()!=null && !contactDto.phoneNumbersList.contains(listContact)){
+                contactDto.phoneNumbersList.add(listContact.getPhoneNumber());
+            }
         }
 
-//After the traversal the lists are set to Dto object
-        contactDto.setEmails(emails);
-        contactDto.setPhoneNumbers(phoneNumbers);
-        contactDto.setSecondaryContactId(secondaryContactIds);
+        if(primarycontact.getEmail()!=null && !contactDto.emailsList.contains(primarycontact.getEmail())){
+            contactDto.emailsList.add(primarycontact.getEmail());
+        }
+
+        if(primarycontact.getPhoneNumber()!=null && !contactDto.phoneNumbersList.contains(primarycontact.getPhoneNumber())){
+            contactDto.phoneNumbersList.add(primarycontact.getPhoneNumber());
+        }
 
         return contactDto;
-
     }
 
 }

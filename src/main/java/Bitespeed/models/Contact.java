@@ -7,13 +7,11 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 
 
-
 @Getter
 @Setter
 @Entity
 @Table(name = "contact")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "contact_type",discriminatorType =DiscriminatorType.STRING)
+
 public class Contact {
 
     @Id
@@ -23,10 +21,11 @@ public class Contact {
     private String phoneNumber;
     private String email;
 
-    private LocalDateTime createdAt= LocalDateTime.now();;
-    private LocalDateTime updatedAt= LocalDateTime.now();;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private Integer linkedId;
+    private LocalDateTime deletedAt;
 
-    private LocalDateTime deletedAt=null;
 
     @Enumerated(EnumType.STRING)
     private LinkPrecedence linkPrecedence;
