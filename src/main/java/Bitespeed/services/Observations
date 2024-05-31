@@ -1,0 +1,27 @@
+
+ My observations and findings need to be rectified based on my project's API POST requests
+ from Postman:
+
+
+1) In my service class logic, I need to set the linked ID as null while saving primary contact
+details.
+
+2) When sending two different requests with different emails — one primary and the other secondary-
+if the linked phone numbers are the same for both requests, the linked phone number list has to be saved
+in the secondary contact details.but in the out i am getting same phoneNumber added twice in the list.
+
+3) The Output fields are not in the expected order as mentioned in the requirement.
+
+4) After manually deleting rows of data from the database(Suppose i delete 5 rows), the ID should
+reset to 0. For the next request, DB should start saving the contact from ID-1.
+
+5) If a request is sent with a null phone number and only an email, it works as expected. However, if
+an ID already has a phone number present and the email is null, sending another request with a
+phone number and a null email results in an error.
+
+Finding:
+This error occurs because, seems the code does not handle cases where a phone number is
+present and the email is null- need to handle string.equal method correctly for email.
+
+6) The system successfully prevents duplicate data entry when the same request is sent multiple
+times (e.g., with the same email and phone number).
