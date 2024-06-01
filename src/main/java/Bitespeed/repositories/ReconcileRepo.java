@@ -18,4 +18,9 @@ public interface ReconcileRepo extends JpaRepository<Contact, Long> {
 
     List<Contact> findByEmailOrPhoneNumber(String email, String phoneNumber);
 
+ //   (obv 4)
+//    @Modifying
+//    @Transactional
+//    @Query(value = "ALTER TABLE contact AUTO_INCREMENT = 1 ", nativeQuery = true)
+//    void resetAutoIncrement();
 }

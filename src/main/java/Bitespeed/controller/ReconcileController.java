@@ -1,8 +1,8 @@
 package Bitespeed.controller;
 
 
-import Bitespeed.dto.ContactDto;
 import Bitespeed.dto.ContactReqDto;
+import Bitespeed.dto.contactResponseWrapper;
 import Bitespeed.services.ReconcileServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,13 +33,13 @@ public class ReconcileController {
 //    }
 
     @PostMapping("identify")
-    public ResponseEntity<ContactDto> identifyDetails(@RequestBody ContactReqDto contactReqDto) {
-        ContactDto responseDto=reconcileService.getAllDetails(contactReqDto.getEmail(), contactReqDto.getPhoneNumber() );
+    public ResponseEntity<contactResponseWrapper> identifyDetails(@RequestBody ContactReqDto contactReqDto) {
+        contactResponseWrapper responseWrapper=reconcileService.getAllDetails(contactReqDto.getEmail(), contactReqDto.getPhoneNumber() );
 
 
 
         //return null;
-        return ResponseEntity.ok(responseDto);
+        return ResponseEntity.ok(responseWrapper);
 
         /*
         catch (RuntimeException e) {
