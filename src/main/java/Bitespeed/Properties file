@@ -16,5 +16,26 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 
 
 
+spring.application.name=ReconcileProject
+spring.jpa.hibernate.ddl-auto=update
+spring.datasource.url=jdbc:mysql://${MYSQL_HOST:localhost}:3306/reconciledatabase
+spring.datasource.username=BiteSpeed
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+spring.jpa.show-sql=true
+spring.jpa.open-in-view=false
+
+# Hibernate dialect for MySQL
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+
+
+
+#spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+
+
+
+
+
+
 
 
