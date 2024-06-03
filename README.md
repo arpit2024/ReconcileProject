@@ -31,14 +31,11 @@ Example:
   "email": "docbrown@example.com",
   "phoneNumber": 1234567890
 }
+```
 
 #### Response
 The response will be a JSON object containing the consolidated contact information.
-
-Example:
-
-json
-Copy code
+```json
 {
   "contact": {
     "primaryContactId": 1,
@@ -47,7 +44,10 @@ Copy code
     "secondaryContactIds": [2, 3]
   }
 }
+```
 #### API Testing
 
-Use tools like Postman or Curl to test the /identify endpoint.
-Send POST requests with different email and phone number combinations to verify the consolidation logic.
+Use tools like Postman or Curl to test the /identify endpoint.Send POST requests with different email and phone number combinations to verify the consolidation logic.
+
+
+
